@@ -119,3 +119,12 @@ Good luck! 🎉
 We hope your submission is… to die for.
 
 ![Coffin dance](coffin.gif)
+
+
+
+Dev's Log:
+
+My first approach is to inspect the specs, identify primary features expected from the app, if there is a shared global state and components that I might have to re utilize. So I start by setting up all de the dependencies for that. For state management I chose redux as it is what i know best, and styled components as allows me to keep simple and clean css inside my react components with isolated styles.
+I include some goodies as loadable components to start with code splitting right on, and planning to add webpack somwhere in the future. I see the app is divided in several pages, so I include a router, in this case react router dom.
+
+From here on I will work on the storage and populating it through actions and build the app most basic flow, from welcome page to a main screen with a loading state
