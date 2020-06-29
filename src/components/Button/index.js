@@ -19,7 +19,7 @@ const BaseButton = styled.button`
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     background: ${props => getTheme(props.theme).bgColor};
-    color: ${props => getTheme(props.theme).textColor}};
+    color: ${props => getTheme(props.theme).textColor};
     border: 1px solid rgba(0, 0, 0, 0.1);
     font-style: normal;
     font-weight: 600;
