@@ -9,6 +9,7 @@
   "author": "Cornershop",
   "license": "ISC",
   "dependencies": {
+    "@loadable/component": "^5.13.0",
     "body-parser": "^1.16.1",
     "concurrently": "^5.1.0",
     "cors": "^2.8.5",
@@ -17,7 +18,11 @@
     "morgan": "^1.8.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.1"
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.1",
+    "redux": "^4.0.5",
+    "styled-components": "^5.1.1"
   },
   "proxy": "http://localhost:3001",
   "browserslist": {
@@ -31,5 +36,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-plugin-react": "^6.0.0"
   }
 }

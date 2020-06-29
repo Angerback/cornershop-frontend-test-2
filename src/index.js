@@ -1,22 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import {render} from 'react-dom'
+import App from './App'
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import rootReducer from './reducers'
 
-// You don't have to use `fetch` btw, use whatever you want
-const getCounters = () => 
-  fetch('/api/v1/counter', { method: 'get' })
-    .then(res => res.json());
+const store = createStore(rootReducer)
 
-const App = () => {
-  React.useEffect(() => {
-    getCounters().then(console.log, console.error);
-  }, []);
-
-  return (
-    <h1>Hello, Cornershop!</h1>
-  );
-};
-
-ReactDOM.render(
-  <App />,
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
-);
+)
