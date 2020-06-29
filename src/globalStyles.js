@@ -1,6 +1,17 @@
 import { createGlobalStyle } from 'styled-components'
  
 const GlobalStyle = createGlobalStyle`
+  body {
+      margin: 0;
+      padding: 0;
+      background: #E5E5E5;
+      font-family: Avenir Next, Helvetica, Sans-Serif;
+    }
+  
+  button {
+    font-family: Avenir Next, Helvetica, Sans-Serif;
+  }
+
   h1 {
     font-style: normal;
     font-weight: 600;
@@ -9,12 +20,16 @@ const GlobalStyle = createGlobalStyle`
     color: #000000;
   }
 
-  body {
-    margin: 0;
-    padding: 0;
-    background: #E5E5E5;
-    font-family: Avenir, Helvetica, Sans-Serif;
+  p {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 17px;
+    line-height: 23px;
+    text-align: center;
+    color: #4A4A4A;
   }
+
+  
 `
  
 export default GlobalStyle
