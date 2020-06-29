@@ -7,7 +7,7 @@ const TextPageWrapper = styled.section`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 15vh 10vw;
+  padding: 10vh 10vw;
 `
 export default class WelcomePage extends Component {
   render() {
@@ -18,7 +18,7 @@ export default class WelcomePage extends Component {
           height: '25vh',
         }} />
         <h1>Welcome to Counters</h1>
-        <p style={{marginBottom: '10vh'}}>Capture cups of lattes, frapuccinos, or anything else that can be counted.</p>
+        <p style={{marginBottom: '15vh'}}>Capture cups of lattes, frapuccinos, or anything else that can be counted.</p>
         <Button theme="primary">Get started!</Button>
       </TextPageWrapper>
     )
