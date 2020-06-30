@@ -11,8 +11,7 @@ const themes = {
   },
 }
 
-const getTheme = theme => {
-  return themes[theme] ? themes[theme] : themes.primary}
+const getTheme = theme => themes[theme] ? themes[theme] : themes.primary
 
 const BaseButton = styled.button`
     padding: 8px 24px;
