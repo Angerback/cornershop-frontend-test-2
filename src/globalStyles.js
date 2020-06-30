@@ -29,7 +29,9 @@ const GlobalStyle = createGlobalStyle`
     color: #4A4A4A;
   }
 
-  
+  input {
+    width: 100%;
+  }
 `
  
 export default GlobalStyle

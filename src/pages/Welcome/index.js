@@ -1,15 +1,8 @@
 import React, { PureComponent, Fragment } from 'react'
 import {Redirect} from 'react-router-dom'
-import styled from 'styled-components'
 import { ReactComponent as AppIcon } from '../../icons/appIcon.svg'
 import Button from '../../components/Button'
-
-const TextPageWrapper = styled.section`
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 10vh 10vw;
-`
+import PageWrapper from '../../components/PageWrapper'
 export default class WelcomePage extends PureComponent {
   constructor(props) {
     super(props)
@@ -25,7 +18,7 @@ export default class WelcomePage extends PureComponent {
   render() {
     const {start} = this.state
     return (
-      <TextPageWrapper>
+      <PageWrapper>
         {start ? (<Redirect to="/main" />) : (
           <Fragment>
             <AppIcon style={{
@@ -37,7 +30,7 @@ export default class WelcomePage extends PureComponent {
             <Button onClick={this.handleStartClick} theme="primary">Get started!</Button>
           </Fragment>
         )}
-      </TextPageWrapper>
+      </PageWrapper>
     )
   }
 }
