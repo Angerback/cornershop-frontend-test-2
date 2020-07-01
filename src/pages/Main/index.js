@@ -5,35 +5,11 @@ import { bindActionCreators } from 'redux'
 import fetchCountersAction from '../../redux/fetchCounters'
 import {getCounters, getCountersError, getCountersPending} from '../../redux/reducers'
 
+import Toolbar from '../../components/Toolbar'
+import Centered from '../../components/CenteredWrapper'
+
 import ActivityIndicator from '../../icons/activityIndicator.svg'
 import SearchBar from '../../components/SearchBar'
-import Button from '../../components/Button'
-import PlusIcon from '../../icons/Plus.svg'
-
-import styled from 'styled-components'
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-`
-
-const Separator = styled.div`
-  width: 100%;
-  height: 1px;
-  background: rgba(0, 0, 0, 0.1);
-  margin-bottom: 16px;
-`
-
-const Centered = styled.div`
-  flex: 1;
-  align-content: center;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: center;
-`
 
 class Main extends PureComponent {
     static propTypes = {
@@ -55,38 +31,28 @@ class Main extends PureComponent {
     render() {
       const {pending, error, counters} = this.props
       return (
-        <div style={{
+        <section style={{
           padding: '16px',
           height: '100%',
+          display: 'flex',
+          flexDirection: 'column'
         }}>
-          <section style={{
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column'
-          }}>
-            <SearchBar></SearchBar>
-            {pending && (
-              <Centered>
-                <ActivityIndicator />
-              </Centered>
-            )}
-            {!pending && counters.length > 0 && (counters.map(counter => <span>{counter.title}</span>))}
-            {!pending && counters.length === 0 && (
-              <Centered>
-                <h1>No counters yet</h1>
-                <p>“When I started counting my blessings, my whole life turned around.” —Willie Nelson</p>
-              </Centered>
-            )}
-            <ButtonWrapper>
-              <Separator />
-              <Button  theme="primary"><PlusIcon style={{
-                marginBottom: '-4px'
-              }}/></Button>
-            </ButtonWrapper>
-          </section>
-            
-        </div>
-        
+          <SearchBar></SearchBar>
+          {pending && (
+            <Centered>
+              <ActivityIndicator />
+            </Centered>
+          )}
+          {!pending && counters.length > 0 && (counters.map(counter => <span>{counter.title}</span>))}
+          {!pending && counters.length === 0 && (
+            <Centered>
+              <h1>No counters yet</h1>
+              <p>“When I started counting my blessings, my whole life turned around.” —Willie Nelson</p>
+            </Centered>
+          )}
+          <Toolbar />
+        </section>
+
       )
     }
 }

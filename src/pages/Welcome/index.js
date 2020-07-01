@@ -21,12 +21,11 @@ export default class WelcomePage extends PureComponent {
       <PageWrapper>
         {start ? (<Redirect to="/main" push/>) : (
           <Fragment>
-            <AppIcon style={{
-              marginBottom: '10vh',
-              height: '25vh',
-            }} />
+            <AppIcon style={{marginBottom: '5vh'}}/>
             <h1>Welcome to Counters</h1>
-            <p style={{marginBottom: '15vh'}}>Capture cups of lattes, frapuccinos, or anything else that can be counted.</p>
+            <p style={{marginBottom: '10vh'}}>
+              Capture cups of lattes, frapuccinos, or anything else that can be counted.
+            </p>
             <Button onClick={this.handleStartClick} theme="primary">Get started!</Button>
           </Fragment>
         )}

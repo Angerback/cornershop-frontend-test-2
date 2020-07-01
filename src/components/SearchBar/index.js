@@ -4,8 +4,8 @@ import GlassIcon from '../../icons/Glass.svg'
 
 const SearchInput = styled.input`
     background: #FFFFFF;
-    border: 1px solid rgba(0, 0, 0, 0.02);
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     height: 48px;
 
