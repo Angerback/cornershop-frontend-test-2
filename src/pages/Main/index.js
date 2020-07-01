@@ -1,14 +1,14 @@
-import React, { PureComponent, Fragment } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import fetchCountersAction from '../../redux/fetchCounters'
 import {getCounters, getCountersError, getCountersPending} from '../../redux/reducers'
 
-import {ReactComponent as ActivityIndicator } from '../../icons/activityIndicator.svg'
+import ActivityIndicator from '../../icons/activityIndicator.svg'
 import SearchBar from '../../components/SearchBar'
 import Button from '../../components/Button'
-import {ReactComponent as PlusIcon} from '../../icons/Plus.svg'
+import PlusIcon from '../../icons/Plus.svg'
 
 import styled from 'styled-components'
 
@@ -25,7 +25,7 @@ const Separator = styled.div`
   margin-bottom: 16px;
 `
 
-const CenteredText = styled.div`
+const Centered = styled.div`
   flex: 1;
   align-content: center;
   display: flex;
@@ -46,15 +46,7 @@ class Main extends PureComponent {
     static defaultProps = {
       error: null,
     }
-
-    constructor(props) {
-      super(props)
-
-      this.state = {
-            
-      }
-    }
-
+    
     componentDidMount() {
       const {fetchCounters} = this.props
       fetchCounters()
@@ -73,13 +65,17 @@ class Main extends PureComponent {
             flexDirection: 'column'
           }}>
             <SearchBar></SearchBar>
-            {pending && (<ActivityIndicator />)}
+            {pending && (
+              <Centered>
+                <ActivityIndicator />
+              </Centered>
+            )}
             {!pending && counters.length > 0 && (counters.map(counter => <span>{counter.title}</span>))}
             {!pending && counters.length === 0 && (
-              <CenteredText>
+              <Centered>
                 <h1>No counters yet</h1>
                 <p>“When I started counting my blessings, my whole life turned around.” —Willie Nelson</p>
-              </CenteredText>
+              </Centered>
             )}
             <ButtonWrapper>
               <Separator />

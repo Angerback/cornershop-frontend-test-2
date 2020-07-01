@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import {ReactComponent as GlassIcon} from '../../icons/Glass.svg'
+import GlassIcon from '../../icons/Glass.svg'
 
 const SearchInput = styled.input`
     background: #FFFFFF;

@@ -128,3 +128,5 @@ My first approach is to inspect the specs, identify primary features expected fr
 I include some goodies as loadable components to start with code splitting right on, and planning to add webpack somwhere in the future. I see the app is divided in several pages, so I include a router, in this case react router dom.
 
 From here on I will work on the storage and populating it through actions and build the app most basic flow, from welcome page to a main screen with a loading state
+
+As I am making some progress and have made a general structure of what the app will be built like, I start with tests. From this point forward, I'll try to test the main component features.

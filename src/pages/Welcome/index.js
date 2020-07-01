@@ -1,6 +1,6 @@
 import React, { PureComponent, Fragment } from 'react'
 import {Redirect} from 'react-router-dom'
-import { ReactComponent as AppIcon } from '../../icons/appIcon.svg'
+import AppIcon from '../../icons/appIcon.svg'
 import Button from '../../components/Button'
 import PageWrapper from '../../components/PageWrapper'
 export default class WelcomePage extends PureComponent {
