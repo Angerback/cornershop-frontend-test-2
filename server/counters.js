@@ -1,5 +1,11 @@
 var _ = require("lodash");
-var __Counters = {};
+var __Counters = {
+  "kc3q4ny6": {
+    id: "kc3q4ny6",
+    title: "Default counter",
+    count: 0
+  }
+};
 
 module.exports = {
   all    : getAll,

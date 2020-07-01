@@ -10,6 +10,7 @@ import Centered from '../../components/CenteredWrapper'
 
 import ActivityIndicator from '../../icons/activityIndicator.svg'
 import SearchBar from '../../components/SearchBar'
+import Counter from '../../components/Counter'
 
 class Main extends PureComponent {
     static propTypes = {
@@ -29,7 +30,7 @@ class Main extends PureComponent {
     }
 
     render() {
-      const {pending, error, counters} = this.props
+      const {pending, counters} = this.props
       return (
         <section style={{
           padding: '16px',
@@ -43,7 +44,11 @@ class Main extends PureComponent {
               <ActivityIndicator />
             </Centered>
           )}
-          {!pending && counters.length > 0 && (counters.map(counter => <span>{counter.title}</span>))}
+          {!pending && counters.length > 0 && (
+            <div style={{flex: '1'}}>
+              {counters.map(counter => <Counter key={counter.id} counter={counter}></Counter>)}
+            </div>
+          )}
           {!pending && counters.length === 0 && (
             <Centered>
               <h1>No counters yet</h1>
@@ -52,7 +57,6 @@ class Main extends PureComponent {
           )}
           <Toolbar />
         </section>
-
       )
     }
 }

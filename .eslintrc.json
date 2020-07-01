@@ -1,5 +1,5 @@
 {
-    "ignorePatterns": ["dist/**", "webpack**"],
+    "ignorePatterns": ["dist/**", "webpack**", "node_modules/**", "server/**"],
     "env": {
         "browser": true,
         "es2020": true
@@ -36,5 +36,11 @@
             "error",
             "never"
         ]
+    },
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "detect"
+        }
     }
 }
