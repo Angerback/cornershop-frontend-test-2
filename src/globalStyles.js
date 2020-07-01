@@ -4,8 +4,20 @@ const GlobalStyle = createGlobalStyle`
   body {
       margin: 0;
       padding: 0;
-      background: #E5E5E5;
+      background: #FFFFFF;
       font-family: Avenir Next, Helvetica, Sans-Serif;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 17px;
+      line-height: 23px;
+      text-align: center;
+      color: #4A4A4A;
+      height: 100vh;  
+      height: calc((var(--vh, 1vh) * 100) - 36px);
+    }
+
+    #root {
+      height: 100%;
     }
   
   button {
@@ -20,17 +32,10 @@ const GlobalStyle = createGlobalStyle`
     color: #000000;
   }
 
-  p {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 17px;
-    line-height: 23px;
-    text-align: center;
-    color: #4A4A4A;
-  }
-
   input {
-    width: 100%;
+    width: -webkit-fill-available;
+    outline: 0;
+    background: #FFFFFF;
   }
 `
  

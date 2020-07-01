@@ -19,7 +19,7 @@ export default class WelcomePage extends PureComponent {
     const {start} = this.state
     return (
       <PageWrapper>
-        {start ? (<Redirect to="/main" />) : (
+        {start ? (<Redirect to="/main" push/>) : (
           <Fragment>
             <AppIcon style={{
               marginBottom: '10vh',

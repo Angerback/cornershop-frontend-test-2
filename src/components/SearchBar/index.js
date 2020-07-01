@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import PropTypes from 'prop-types'
+import {ReactComponent as GlassIcon} from '../../icons/Glass.svg'
 
 const SearchInput = styled.input`
     background: #FFFFFF;
@@ -16,23 +16,37 @@ const SearchInput = styled.input`
     line-height: 32px;
     color: #888B90;
 
+    padding-left: 56px;
+
+    &::placeholder {
+      color: #888B90;
+      font-style: normal;
+    }
+
     &:focus {
-        border: 2px solid #FF9500;
+        border: 2px solid rgb(255, 149, 0);
         box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
         border-radius: 8px;
     }
 `
 
-export default class SearchBar extends Component {
-    static propTypes = {
-      
-    }
+const SearchIcon = styled(GlassIcon)`
+  position: absolute;
+  left: 0px;
+  padding-left: 38px;
+  pointer-events: none;
+  top: 2.2rem;
+`
 
-    render() {
-      return (
-        <form>
-          <SearchInput type="text" name="searchBar"></SearchInput>
-        </form>
-      )
-    }
+export default class SearchBar extends Component {
+  render() {
+    return (
+      <form>
+        <SearchInput placeholder="Search counters" type="text" name="searchBar">
+            
+        </SearchInput>
+        <SearchIcon/>
+      </form>
+    )
+  }
 }

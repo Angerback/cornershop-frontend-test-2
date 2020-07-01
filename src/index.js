@@ -9,6 +9,9 @@ import initialState from './redux/initialState'
 
 const store = createStore(rootReducer, initialState, applyMiddleware(thunk))
 
+let vh = window.innerHeight * 0.01
+document.documentElement.style.setProperty('--vh', `${vh}px`)
+
 render(
   <Provider store={store}>
     <App />
