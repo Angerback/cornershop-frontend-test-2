@@ -1,4 +1,5 @@
 {
+    "ignorePatterns": ["dist/**", "webpack**"],
     "env": {
         "browser": true,
         "es2020": true
