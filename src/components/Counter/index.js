@@ -18,14 +18,14 @@ export default class Counter extends Component {
           </CounterTitle>
           <CounterToggler>
             <Toggle>
-              <PlusCounter />
-            </Toggle>  
+              <MinusCounter />
+            </Toggle>
             <Value>
               {counter.count}
             </Value>
             <Toggle>
-              <MinusCounter />
-            </Toggle>
+              <PlusCounter />
+            </Toggle>  
           </CounterToggler>
         </CounterContainer>
       )
@@ -34,8 +34,9 @@ export default class Counter extends Component {
 
 const CounterContainer = styled.div`
   display: flex;
-  min-height: 67px;
+  min-height: 39px;
   color: #212121;
+  margin-top: 28px;
 `
 
 const CounterTitle = styled.div`
@@ -43,13 +44,11 @@ const CounterTitle = styled.div`
   text-align: start;
   width: 70%;
   padding: 0 8px;
-  margin-top: 28px;
 `
 
 const CounterToggler = styled.div`
   display: flex;
   width: 30%;
-  margin-top: 28px;
   font-weight: 600;
 `
 

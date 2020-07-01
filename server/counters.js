@@ -4,6 +4,11 @@ var __Counters = {
     id: "kc3q4ny6",
     title: "Default counter",
     count: 0
+  },
+  "12rany6": {
+    id: "12rany6",
+    title: "Default counter",
+    count: 10
   }
 };
 
