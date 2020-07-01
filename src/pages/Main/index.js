@@ -25,7 +25,7 @@ const Separator = styled.div`
   margin-bottom: 16px;
 `
 
-const CenteredText = styled.div`
+const Centered = styled.div`
   flex: 1;
   align-content: center;
   display: flex;
@@ -73,13 +73,17 @@ class Main extends PureComponent {
             flexDirection: 'column'
           }}>
             <SearchBar></SearchBar>
-            {pending && (<ActivityIndicator />)}
+            {pending && (
+              <Centered>
+                <ActivityIndicator />
+              </Centered>
+            )}
             {!pending && counters.length > 0 && (counters.map(counter => <span>{counter.title}</span>))}
             {!pending && counters.length === 0 && (
-              <CenteredText>
+              <Centered>
                 <h1>No counters yet</h1>
                 <p>“When I started counting my blessings, my whole life turned around.” —Willie Nelson</p>
-              </CenteredText>
+              </Centered>
             )}
             <ButtonWrapper>
               <Separator />
