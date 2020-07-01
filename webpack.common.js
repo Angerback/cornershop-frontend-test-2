@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -8,10 +9,6 @@ module.exports = {
     filename: 'bundle.js',
     chunkFilename: '[id].js',
     publicPath: '/'
-  },
-  devServer: {
-    historyApiFallback: true,
-    port: 3000
   },
   resolve: {
     extensions: ['.js', '.jsx']
@@ -34,6 +31,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: __dirname + '/public/index.html',
       filename: 'index.html',
