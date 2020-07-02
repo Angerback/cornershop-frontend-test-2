@@ -1,12 +1,14 @@
 {
-    "ignorePatterns": ["dist/**", "webpack**", "node_modules/**", "server/**"],
+    "ignorePatterns": ["dist/**", "webpack**", "node_modules/**", "server/**", "__mocks__/**", "cypress/plugins/**"],
     "env": {
         "browser": true,
-        "es2020": true
+        "es2020": true,
+        "jest": true
     },
     "extends": [
         "eslint:recommended",
-        "plugin:react/recommended"
+        "plugin:react/recommended",
+        "plugin:cypress/recommended"
     ],
     "parser": "babel-eslint",
     "parserOptions": {
@@ -17,7 +19,10 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        "jest",
+        "enzyme",
+        "cypress"
     ],
     "rules": {
         "indent": [

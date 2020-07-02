@@ -12,11 +12,11 @@ export default class Counter extends Component {
     render() {
       const {counter} = this.props
       return (
-        <CounterContainer>
+        <Row>
           <CounterTitle>
             {counter.title}
           </CounterTitle>
-          <CounterToggler>
+          <CountContainer>
             <Toggle>
               <MinusCounter />
             </Toggle>
@@ -26,13 +26,13 @@ export default class Counter extends Component {
             <Toggle>
               <PlusCounter />
             </Toggle>  
-          </CounterToggler>
-        </CounterContainer>
+          </CountContainer>
+        </Row>
       )
     }
 }
 
-const CounterContainer = styled.div`
+const Row = styled.div`
   display: flex;
   min-height: 39px;
   color: #212121;
@@ -46,7 +46,7 @@ const CounterTitle = styled.div`
   padding: 0 8px;
 `
 
-const CounterToggler = styled.div`
+const CountContainer = styled.div`
   display: flex;
   width: 30%;
   font-weight: 600;

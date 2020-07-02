@@ -24,9 +24,11 @@ export default class Toolbar extends Component {
     return (
       <ButtonWrapper>
         <Separator />
-        <Button  theme="primary"><PlusIcon style={{
-          marginBottom: '-4px'
-        }}/></Button>
+        <Button theme="primary" data-testid="Toolbar_addCounterButton">
+          <PlusIcon style={{
+            marginBottom: '-4px'
+          }}/>
+        </Button>
       </ButtonWrapper>
     )
   }
