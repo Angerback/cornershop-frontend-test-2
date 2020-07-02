@@ -24,7 +24,7 @@ export default class WelcomePage extends PureComponent {
           <Fragment>
             <AppIcon style={{ marginBottom: '5vh' }}/>
             <h1>Welcome to Counters</h1>
-            <p style={{ marginBottom: '10vh' }}>
+            <p style={{ marginBottom: '10vh', textAlign: 'center' }}>
               Capture cups of lattes, frapuccinos, or anything else that can be counted.
             </p>
             <Button onClick={this.handleStartClick} theme="primary">Get started!</Button>

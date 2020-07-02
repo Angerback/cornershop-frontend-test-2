@@ -10,7 +10,6 @@ const GlobalStyle = createGlobalStyle`
       font-weight: normal;
       font-size: 17px;
       line-height: 23px;
-      text-align: center;
       color: #4A4A4A;
       height: 100vh;  
       height: calc((var(--vh, 1vh) * 100) - 36px);
@@ -33,9 +32,30 @@ const GlobalStyle = createGlobalStyle`
   }
 
   input {
+    font-family: Avenir Next, Helvetica, Sans-Serif;
     width: -webkit-fill-available;
     outline: 0;
     background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    height: 44px;
+    padding-left: 12px;
+
+    &::placeholder {
+      color: #888B90;
+      font-style: normal;
+    }
+  }
+
+  label {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 23px;
+    margin: 0;
+    color: #000000;
   }
 `
 

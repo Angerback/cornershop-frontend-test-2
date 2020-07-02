@@ -19,11 +19,6 @@ const SearchInput = styled.input`
 
     padding-left: 56px;
 
-    &::placeholder {
-      color: #888B90;
-      font-style: normal;
-    }
-
     &:focus {
         border: 2px solid rgb(255, 149, 0);
         box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
@@ -36,7 +31,7 @@ const SearchIcon = styled(GlassIcon)`
   left: 0px;
   padding-left: 38px;
   pointer-events: none;
-  top: 2.2rem;
+  top: 2.0rem;
 `
 
 export default class SearchBar extends Component {

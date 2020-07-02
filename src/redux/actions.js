@@ -30,7 +30,7 @@ export const createCountersError = (error) => ({
   error,
 })
 
-export const createCountersSuccess = (counters) => ({
+export const createCountersSuccess = (createdCounter) => ({
   type: CREATE_COUNTERS_SUCCESS,
-  counters,
+  createdCounter,
 })

@@ -50,6 +50,7 @@ const CountContainer = styled.div`
   display: flex;
   width: 30%;
   font-weight: 600;
+  text-align: center;
 `
 
 const Toggle = styled.div`
