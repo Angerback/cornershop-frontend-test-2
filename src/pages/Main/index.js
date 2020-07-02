@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import fetchCountersAction from '../../redux/fetchCounters'
-import {getCounters, getCountersError, getCountersPending} from '../../redux/reducers'
+import { getCounters, getCountersError, getCountersPending } from '../../redux/reducers'
 
 import Toolbar from '../../components/Toolbar'
 import Centered from '../../components/CenteredWrapper'
@@ -23,20 +23,20 @@ class Main extends PureComponent {
     static defaultProps = {
       error: null,
     }
-    
+
     componentDidMount() {
-      const {fetchCounters} = this.props
+      const { fetchCounters } = this.props
       fetchCounters()
     }
 
     render() {
-      const {pending, counters} = this.props
+      const { pending, counters } = this.props
       return (
         <section style={{
           padding: '16px',
           height: '100%',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
         }}>
           <SearchBar></SearchBar>
           {pending && (
@@ -45,14 +45,16 @@ class Main extends PureComponent {
             </Centered>
           )}
           {!pending && counters.length > 0 && (
-            <div style={{flex: '1'}}>
-              {counters.map(counter => <Counter key={counter.id} counter={counter}></Counter>)}
+            <div style={{ flex: '1' }}>
+              {counters.map((counter) => <Counter key={counter.id} counter={counter}></Counter>)}
             </div>
           )}
           {!pending && counters.length === 0 && (
             <Centered>
               <h1>No counters yet</h1>
-              <p>“When I started counting my blessings, my whole life turned around.” —Willie Nelson</p>
+              <p>“When I started counting my blessings,
+                 my whole life turned around.” —Willie Nelson
+              </p>
             </Centered>
           )}
           <Toolbar />
@@ -67,8 +69,8 @@ const mapStateToProps = (state) => ({
   pending: getCountersPending(state),
 })
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-  fetchCounters: fetchCountersAction  
+const mapDispatchToProps = (dispatch) => bindActionCreators({
+  fetchCounters: fetchCountersAction,
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main)

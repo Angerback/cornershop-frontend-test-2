@@ -6,27 +6,27 @@ const counters = (state = initialState, action) => {
   case FETCH_COUNTERS_PENDING:
     return {
       ...state,
-      pending: true
+      pending: true,
     }
   case FETCH_COUNTERS_SUCCESS:
     return {
       ...state,
       pending: false,
-      counters: action.counters
+      counters: action.counters,
     }
   case FETCH_COUNTERS_ERROR:
     return {
       ...state,
       pending: false,
-      error: action.error
+      error: action.error,
     }
   default:
     return state
   }
 }
 
-export const getCounters = state => state.counters
-export const getCountersPending = state => state.pending
-export const getCountersError = state => state.error
+export const getCounters = (state) => state.counters
+export const getCountersPending = (state) => state.pending
+export const getCountersError = (state) => state.error
 
 export default counters

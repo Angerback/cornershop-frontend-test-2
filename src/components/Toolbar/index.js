@@ -1,10 +1,9 @@
+/* eslint-disable class-methods-use-this */
 import React, { Component } from 'react'
 
-import Button from '../../components/Button'
-import PlusIcon from '../../icons/Plus.svg'
-
 import styled from 'styled-components'
-
+import Button from '../Button'
+import PlusIcon from '../../icons/Plus.svg'
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -26,7 +25,7 @@ export default class Toolbar extends Component {
         <Separator />
         <Button theme="primary" data-testid="Toolbar_addCounterButton">
           <PlusIcon style={{
-            marginBottom: '-4px'
+            marginBottom: '-4px',
           }}/>
         </Button>
       </ButtonWrapper>

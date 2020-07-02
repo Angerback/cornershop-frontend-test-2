@@ -10,7 +10,7 @@ export default class Counter extends Component {
     }
 
     render() {
-      const {counter} = this.props
+      const { counter } = this.props
       return (
         <Row>
           <CounterTitle>
@@ -25,7 +25,7 @@ export default class Counter extends Component {
             </Value>
             <Toggle>
               <PlusCounter />
-            </Toggle>  
+            </Toggle>
           </CountContainer>
         </Row>
       )

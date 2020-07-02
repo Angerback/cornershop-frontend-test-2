@@ -1,7 +1,7 @@
 const initialState = {
   pending: false,
   counters: [],
-  error: null
+  error: null,
 }
-  
+
 export default initialState

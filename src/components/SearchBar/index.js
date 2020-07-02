@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import GlassIcon from '../../icons/Glass.svg'
@@ -42,10 +43,8 @@ export default class SearchBar extends Component {
   render() {
     return (
       <form>
-        <SearchInput placeholder="Search counters" type="text" name="searchBar">
-            
-        </SearchInput>
-        <SearchIcon/>
+        <SearchInput placeholder="Search counters" type="text" name="searchBar" />
+        <SearchIcon />
       </form>
     )
   }

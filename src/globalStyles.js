@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
- 
+
 const GlobalStyle = createGlobalStyle`
   body {
       margin: 0;
@@ -38,5 +38,5 @@ const GlobalStyle = createGlobalStyle`
     background: #FFFFFF;
   }
 `
- 
+
 export default GlobalStyle
