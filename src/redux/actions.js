@@ -5,6 +5,9 @@ import {
   CREATE_COUNTERS_ERROR,
   CREATE_COUNTERS_PENDING,
   CREATE_COUNTERS_SUCCESS,
+  TOGGLE_COUNTERS_ERROR,
+  TOGGLE_COUNTERS_PENDING,
+  TOGGLE_COUNTERS_SUCCESS,
 } from './actionTypes'
 
 export const fetchCountersPending = () => ({
@@ -33,4 +36,21 @@ export const createCountersError = (error) => ({
 export const createCountersSuccess = (createdCounter) => ({
   type: CREATE_COUNTERS_SUCCESS,
   createdCounter,
+})
+
+export const toggleCountersPending = (id) => ({
+  type: TOGGLE_COUNTERS_PENDING,
+  toggleId: id,
+})
+
+export const toggleCountersError = (error, id) => ({
+  type: TOGGLE_COUNTERS_ERROR,
+  error,
+  toggleId: id,
+})
+
+export const toggleCountersSuccess = (toggledCounter, id) => ({
+  type: TOGGLE_COUNTERS_SUCCESS,
+  toggledCounter,
+  toggleId: id,
 })

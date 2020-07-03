@@ -1,6 +1,7 @@
+/* eslint-disable no-undef */
 describe('Welcome Page Test', () => {
-  it('should navigate to main', () => {
-    cy.visit('http://localhost:3000/main')
+  it('should create counter', () => {
+    cy.visit('/main')
     cy.contains('Default counter').should('exist')
     cy.getTestElement('Toolbar_addCounterButton').click()
 
@@ -10,5 +11,30 @@ describe('Welcome Page Test', () => {
     cy.get('.ReactModal__Content').should('not.exist')
 
     cy.getTestElement('Counters__counter-element').last().contains('New counter name').should('exist')
+  })
+
+  it('should toggle counter', () => {
+    cy.visit('/main')
+    cy.contains('Default counter').should('exist')
+
+    Cypress._.times(10, () => {
+      cy.getTestElement('Counters__counter-increase')
+        .last()
+        .click()
+    })
+    cy.getTestElement('Counters__counter-value')
+      .last()
+      .contains('10')
+      .should('exist')
+
+    Cypress._.times(5, () => {
+      cy.getTestElement('Counters__counter-decrease')
+        .last()
+        .click()
+    })
+    cy.getTestElement('Counters__counter-value')
+      .last()
+      .contains('5')
+      .should('exist')
   })
 })
