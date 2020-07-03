@@ -12,20 +12,16 @@ export default class Counter extends Component {
     render() {
       const { counter } = this.props
       return (
-        <Row>
+        <Row data-testid="Counters__counter-element">
           <CounterTitle>
             {counter.title}
           </CounterTitle>
           <CountContainer>
-            <Toggle>
-              <MinusCounter />
-            </Toggle>
+            <Toggle disabled={counter.count === 0}><MinusCounter /></Toggle>
             <Value>
               {counter.count}
             </Value>
-            <Toggle>
-              <PlusCounter />
-            </Toggle>
+            <Toggle><PlusCounter /></Toggle>
           </CountContainer>
         </Row>
       )
@@ -53,8 +49,22 @@ const CountContainer = styled.div`
   text-align: center;
 `
 
-const Toggle = styled.div`
+const Toggle = styled.button`
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  padding-top: 4px;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
   width: 33%;
+  display: flex;
+  justify-content: center;
+
+  &:disabled svg {
+    fill: #DCDCDF;
+  }
 `
 const Value = styled.div`
   flex: 1;

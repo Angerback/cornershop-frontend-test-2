@@ -111,7 +111,12 @@ class CreateCounterModal extends Component {
               paddingRight: '16px',
             }}/>
           <h1 style={{ flex: '1' }}>Create counter</h1>
-          <Button theme='primary' onClick={this.saveCounterButtonHanlder}>
+          <Button id='saveNewCounterButton'
+            theme='primary'
+            onClick={this.saveCounterButtonHanlder}
+            disabled={pendingCreate}
+            onSubmit={this.saveCounterButtonHanlder}
+          >
               Save
           </Button>
         </ModalControls>
@@ -119,7 +124,14 @@ class CreateCounterModal extends Component {
           <form>
             <label>
                 Name
-              <input value={counterName} onChange={this.handleCounterNameChange} placeholder="Cups of coffee" type="text"></input>
+              <input
+                id="counterNameInput"
+                value={counterName}
+                onChange={this.handleCounterNameChange}
+                placeholder="Cups of coffee"
+                type="text"
+                disabled={pendingCreate}
+              />
               <InputHint>Give it a name. Creative block? See examples.</InputHint>
             </label>
           </form>

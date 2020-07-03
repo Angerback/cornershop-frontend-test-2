@@ -47,6 +47,9 @@ const GlobalStyle = createGlobalStyle`
       color: #888B90;
       font-style: normal;
     }
+    &:disabled {
+      color: #888B90;
+    }
   }
 
   label {
