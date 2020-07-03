@@ -35,11 +35,13 @@ const counters = (state = initialState, action) => {
   case CREATE_COUNTERS_SUCCESS:
     return {
       ...state,
+      createPending: false,
       counters: [...state.counters, action.createdCounter],
     }
   case CREATE_COUNTERS_ERROR:
     return {
       ...state,
+      createPending: false,
       createError: action.error,
     }
   default:
