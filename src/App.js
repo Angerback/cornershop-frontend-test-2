@@ -19,7 +19,7 @@ const App = () => (
         <Route path="/welcome" component={(props) => <WelcomePage {...props}/>} />
         <Route path="/main" component={(props) => <MainPage {...props}/>} />
         <Route path="/">
-          <Redirect to="/welcome"></Redirect>
+          <Redirect to="/welcome" />
         </Route>
       </Switch>
     </Fragment>

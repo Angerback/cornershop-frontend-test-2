@@ -41,7 +41,11 @@
         "semi": [
             "error",
             "never"
-        ]
+        ],
+        "react/self-closing-comp": ["error", {
+            "component": true,
+            "html": true
+          }]
     },
     "settings": {
         "react": {

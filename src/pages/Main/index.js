@@ -39,8 +39,8 @@ class Main extends PureComponent {
           display: 'flex',
           flexDirection: 'column',
         }}>
-          <SearchBar></SearchBar>
-          <CountersStats></CountersStats>
+          <SearchBar />
+          <CountersStats />
           {pending && (
             <Centered>
               <ActivityIndicator />
@@ -48,7 +48,7 @@ class Main extends PureComponent {
           )}
           {!pending && counters.length > 0 && (
             <div style={{ flex: '1' }}>
-              {counters.map((counter) => <Counter key={counter.id} counter={counter}></Counter>)}
+              {counters.map((counter) => <Counter key={counter.id} counter={counter} />)}
             </div>
           )}
           {!pending && counters.length === 0 && (
