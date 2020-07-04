@@ -104,7 +104,16 @@ class Toolbar extends PureComponent {
                 borderRadius: '10px',
                 padding: '0 13px 25px',
               }}
-
+              arrowStyle={{
+                borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+                borderRight: '1px solid rgba(0, 0, 0, 0.1)',
+                borderBottomRightRadius: '3px',
+                height: '20px',
+                width: '20px',
+                margin: '-10px',
+                background: '#FAFAFA',
+                boxShadow: 'unset',
+              }}
             >
               <Fragment>
                 <h1>Share 1 counter</h1>
