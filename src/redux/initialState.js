@@ -7,6 +7,8 @@ const initialState = {
   togglePending: false,
   toggleError: false,
   toggleId: '',
+  selectedCounterId: '',
+  pendingToggle: false,
 }
 
 export default initialState

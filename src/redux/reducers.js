@@ -8,6 +8,8 @@ import {
   TOGGLE_COUNTERS_SUCCESS,
   TOGGLE_COUNTERS_ERROR,
   TOGGLE_COUNTERS_PENDING,
+  SELECT_COUNTER,
+  DESELECT_COUNTER,
 } from './actionTypes'
 import initialState from './initialState'
 
@@ -78,6 +80,16 @@ const counters = (state = initialState, action) => {
         return counter
       }),
     }
+  case SELECT_COUNTER:
+    return {
+      ...state,
+      selectedCounterId: action.selectedCounterId,
+    }
+  case DESELECT_COUNTER:
+    return {
+      ...state,
+      selectedCounterId: '',
+    }
   default:
     return state
   }
@@ -93,5 +105,7 @@ export const getCountersCreationError = (state) => state.createError
 export const getCountersTogglePending = (state) => state.togglePending
 export const getCountersToggleError = (state) => state.toggleError
 export const getCountersToggleId = (state) => state.toggleId
+
+export const getSelectedCounter = (state) => state.selectedCounterId
 
 export default counters
