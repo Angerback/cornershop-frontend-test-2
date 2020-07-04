@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 describe('Welcome Page Test', () => {
   it('should create counter', () => {
     cy.visit('/main')

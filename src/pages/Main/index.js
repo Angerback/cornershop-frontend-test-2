@@ -11,6 +11,7 @@ import Centered from '../../components/CenteredWrapper'
 import ActivityIndicator from '../../icons/activityIndicator.svg'
 import SearchBar from '../../components/SearchBar'
 import Counter from '../../components/Counter'
+import CountersStats from '../../components/CountersStats'
 
 class Main extends PureComponent {
     static propTypes = {
@@ -39,6 +40,7 @@ class Main extends PureComponent {
           flexDirection: 'column',
         }}>
           <SearchBar></SearchBar>
+          <CountersStats></CountersStats>
           {pending && (
             <Centered>
               <ActivityIndicator />
