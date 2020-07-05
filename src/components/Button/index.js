@@ -24,6 +24,7 @@ const BaseButton = styled.button`
     font-weight: 600;
     font-size: 17px;
     line-height: 23px;
+    cursor: pointer;
 `
 
 export default BaseButton

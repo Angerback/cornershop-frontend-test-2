@@ -17,6 +17,10 @@ const GlobalStyle = createGlobalStyle`
 
     #root {
       height: 100%;
+      @media (min-width: 768px){
+        display: flex;
+        justify-content: center;
+      }
     }
   
   button {
@@ -59,6 +63,18 @@ const GlobalStyle = createGlobalStyle`
     line-height: 23px;
     margin: 0;
     color: #000000;
+  }
+
+  .ReactModal__Content {
+    @media (min-width: 768px) {
+      /* Hate to use !important but react-modal wont take my class into account */
+      left: 20%!important;
+      width: 60%!important;
+      top: 44px!important;
+      bottom: 44px!important;
+      border-radius: 16px!important;
+      height: unset!important;
+    }
   }
 `
 

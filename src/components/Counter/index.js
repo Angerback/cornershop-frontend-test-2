@@ -115,13 +115,13 @@ const Row = styled.div`
 const CounterTitle = styled.div`
   display: flex;
   text-align: start;
-  width: 70%;
+  flex: 1;
   padding: 0 8px;
 `
 
 const CountContainer = styled.div`
   display: flex;
-  width: 30%;
+  width: 80px;
   font-weight: 600;
   text-align: center;
   align-items: baseline;

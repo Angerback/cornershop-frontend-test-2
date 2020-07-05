@@ -9,7 +9,7 @@ import { getCountersCreationPending, getCountersCreationError } from '../../redu
 import createCounterAction from '../../redux/createCounter'
 
 import Button from '../Button'
-import CloseButton from '../../icons/CloseButton.svg'
+import CloseIcon from '../../icons/CloseButton.svg'
 import Centered from '../CenteredWrapper'
 import ActivityIndicator from '../../icons/activityIndicator.svg'
 
@@ -56,6 +56,11 @@ const InputHint = styled.span`
     line-height: 20px;
   `
 
+const CloseButton = styled(CloseIcon)`
+  cursor: pointer;
+  margin-right: 16px;
+`
+
 class CreateCounterModal extends Component {
     static propTypes = {
       pendingCreate: PropTypes.bool.isRequired,
@@ -78,7 +83,8 @@ class CreateCounterModal extends Component {
     })
   }
 
-  saveCounterButtonHanlder = () => {
+  saveCounterButtonHanlder = (evt) => {
+    evt.preventDefault()
     const { createCounter } = this.props
     const { counterName } = this.state
     createCounter({ title: counterName })
@@ -107,24 +113,24 @@ class CreateCounterModal extends Component {
         <ModalControls>
           <CloseButton
             onClick={closeModal}
-            style={{
-              paddingRight: '16px',
-            }}/>
+          />
           <h1 style={{ flex: '1' }}>Create counter</h1>
           <Button id='saveNewCounterButton'
             theme='primary'
             onClick={this.saveCounterButtonHanlder}
             disabled={pendingCreate}
-            onSubmit={this.saveCounterButtonHanlder}
           >
               Save
           </Button>
         </ModalControls>
         <ModalContent>
-          <form>
+          <form
+            onSubmit={this.saveCounterButtonHanlder}
+          >
             <label>
                 Name
               <input
+                autoFocus
                 id="counterNameInput"
                 value={counterName}
                 onChange={this.handleCounterNameChange}

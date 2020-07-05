@@ -27,11 +27,11 @@ const SearchInput = styled.input`
 `
 
 const SearchIcon = styled(GlassIcon)`
-  position: absolute;
+  position: relative;
   left: 0px;
-  padding-left: 38px;
+  padding-left: 26px;
   pointer-events: none;
-  top: 2.0rem;
+  top: -2rem;
 `
 
 export default class SearchBar extends Component {

@@ -58,7 +58,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(CountersStats)
 
 const StatsContainer = styled.span`
     letter-spacing: 0.02em;
-    margin: 22px 7px 0;
+    margin: 22px 7px 6px;
     display: flex;
     align-items: center;
     font-size: 17px;
