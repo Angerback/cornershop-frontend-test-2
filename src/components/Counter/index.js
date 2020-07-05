@@ -107,9 +107,13 @@ const Row = styled.div`
   color: #212121;
   margin-top: 12px;
   padding-top: 16px;
-
+  cursor: pointer;
+  border-radius: 6px;
   background: ${(props) => (props.isSelected ? '#ff950040' : 'inherit')};
-  border-radius: ${(props) => (props.isSelected ? '6px' : 'inherit')};
+
+  &:hover {
+    background: ${(props) => (!props.isSelected ? '#0000000a' : '#ff950040')};
+  }
 `
 
 const CounterTitle = styled.div`

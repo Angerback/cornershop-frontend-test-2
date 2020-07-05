@@ -39,6 +39,24 @@ const SelectionButtons = styled.div`
     margin-right: 18px;
   }
 `
+const popupContentStyle = {
+  background: '#FAFAFA',
+  border: '1px solid rgba(0, 0, 0, 0.1)',
+  boxShadow: '0px 24px 38px rgba(0, 0, 0, 0.14)',
+  borderRadius: '10px',
+  padding: '0 13px 25px',
+}
+
+const popupArrowStyle = {
+  borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
+  borderRight: '1px solid rgba(0, 0, 0, 0.1)',
+  borderBottomRightRadius: '3px',
+  height: '20px',
+  width: '20px',
+  margin: '-10px',
+  background: '#FAFAFA',
+  boxShadow: 'unset',
+}
 
 class Toolbar extends PureComponent {
   static propTypes = {
@@ -92,28 +110,12 @@ class Toolbar extends PureComponent {
           <SelectionButtons>
             <Button theme="secondary"><TrashIcon style={{ marginBottom: '-7px' }} /></Button>
             <Popup
-              onOpen={this.setTooltipLeft}
               trigger={<Button theme="secondary"><ExportIcon style={{ marginBottom: '-7px' }}/></Button>}
               repositionOnResize
               position="top center"
               on="click"
-              contentStyle={{
-                background: '#FAFAFA',
-                border: '1px solid rgba(0, 0, 0, 0.1)',
-                boxShadow: '0px 24px 38px rgba(0, 0, 0, 0.14)',
-                borderRadius: '10px',
-                padding: '0 13px 25px',
-              }}
-              arrowStyle={{
-                borderBottom: '1px solid rgba(0, 0, 0, 0.1)',
-                borderRight: '1px solid rgba(0, 0, 0, 0.1)',
-                borderBottomRightRadius: '3px',
-                height: '20px',
-                width: '20px',
-                margin: '-10px',
-                background: '#FAFAFA',
-                boxShadow: 'unset',
-              }}
+              contentStyle={popupContentStyle}
+              arrowStyle={popupArrowStyle}
             >
               <Fragment>
                 <h1>Share 1 counter</h1>
