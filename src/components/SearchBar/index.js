@@ -16,7 +16,6 @@ const SearchInput = styled.input`
     font-size: 16px;
     line-height: 32px;
     color: #888B90;
-
     padding-left: 56px;
 
     &:focus {
@@ -24,6 +23,10 @@ const SearchInput = styled.input`
         box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.05);
         border-radius: 8px;
     }
+
+    @media (min-width: 768px) {
+      margin: 0 10%;
+    }    
 `
 
 const SearchIcon = styled(GlassIcon)`
@@ -32,15 +35,19 @@ const SearchIcon = styled(GlassIcon)`
   padding-left: 26px;
   pointer-events: none;
   top: -2rem;
+  @media (min-width: 768px) {
+    padding-left: 14%;
+  }
 `
-
 export default class SearchBar extends Component {
   render() {
     return (
-      <form>
-        <SearchInput placeholder="Search counters" type="text" name="searchBar" />
-        <SearchIcon />
-      </form>
+      <div>
+        <form>
+          <SearchInput placeholder="Search counters" type="text" name="searchBar" />
+          <SearchIcon />
+        </form>
+      </div>
     )
   }
 }
