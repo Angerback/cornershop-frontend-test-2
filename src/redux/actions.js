@@ -8,6 +8,9 @@ import {
   TOGGLE_COUNTERS_ERROR,
   TOGGLE_COUNTERS_PENDING,
   TOGGLE_COUNTERS_SUCCESS,
+  DELETE_COUNTERS_ERROR,
+  DELETE_COUNTERS_PENDING,
+  DELETE_COUNTERS_SUCCESS,
   SELECT_COUNTER,
   DESELECT_COUNTER,
 } from './actionTypes'
@@ -55,6 +58,22 @@ export const toggleCountersSuccess = (toggledCounter, id) => ({
   type: TOGGLE_COUNTERS_SUCCESS,
   toggledCounter,
   toggleId: id,
+})
+
+export const deleteCountersPending = (id) => ({
+  type: DELETE_COUNTERS_PENDING,
+  id,
+})
+
+export const deleteCountersError = (error, id) => ({
+  type: DELETE_COUNTERS_ERROR,
+  error,
+  id,
+})
+
+export const deleteCountersSuccess = (id) => ({
+  type: DELETE_COUNTERS_SUCCESS,
+  id,
 })
 
 export const selectCounter = (id) => ({

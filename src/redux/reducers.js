@@ -8,6 +8,9 @@ import {
   TOGGLE_COUNTERS_SUCCESS,
   TOGGLE_COUNTERS_ERROR,
   TOGGLE_COUNTERS_PENDING,
+  DELETE_COUNTERS_SUCCESS,
+  DELETE_COUNTERS_PENDING,
+  DELETE_COUNTERS_ERROR,
   SELECT_COUNTER,
   DESELECT_COUNTER,
 } from './actionTypes'
@@ -80,6 +83,27 @@ const counters = (state = initialState, action) => {
         return counter
       }),
     }
+  case DELETE_COUNTERS_PENDING:
+    return {
+      ...state,
+      deletePending: true,
+      deleteId: action.id,
+    }
+  case DELETE_COUNTERS_ERROR:
+    return {
+      ...state,
+      deletePending: false,
+      deleteId: action.id,
+      deleteError: action.error,
+    }
+  case DELETE_COUNTERS_SUCCESS:
+    return {
+      ...state,
+      deletePending: false,
+      deleteId: action.id,
+      counters: state.counters.filter((counter) => action.id !== counter.id),
+      selectedCounterId: '',
+    }
   case SELECT_COUNTER:
     return {
       ...state,
@@ -105,6 +129,10 @@ export const getCountersCreationError = (state) => state.createError
 export const getCountersTogglePending = (state) => state.togglePending
 export const getCountersToggleError = (state) => state.toggleError
 export const getCountersToggleId = (state) => state.toggleId
+
+export const getCountersDeletePending = (state) => state.deletePending
+export const getCountersDeleteError = (state) => state.deleteError
+export const getCountersDeleteId = (state) => state.deleteId
 
 export const getSelectedCounter = (state) => state.selectedCounterId
 

@@ -36,4 +36,29 @@ describe('Welcome Page Test', () => {
       .contains('5')
       .should('exist')
   })
+
+  it('should delete counter', () => {
+    cy.visit('/main')
+    cy.contains('Default counter').should('exist')
+
+    Cypress._.times(10, () => {
+      cy.getTestElement('Counters__counter-increase')
+        .last()
+        .click()
+    })
+    cy.getTestElement('Counters__counter-value')
+      .last()
+      .contains('10')
+      .should('exist')
+
+    Cypress._.times(5, () => {
+      cy.getTestElement('Counters__counter-decrease')
+        .last()
+        .click()
+    })
+    cy.getTestElement('Counters__counter-value')
+      .last()
+      .contains('5')
+      .should('exist')
+  })
 })

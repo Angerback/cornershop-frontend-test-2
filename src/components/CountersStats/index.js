@@ -38,7 +38,7 @@ class CountersStats extends PureComponent {
               <Fragment>
                 <RotatingRefresh /> <span style={{ color: '#FF9500' }}>Refreshing...</span>
               </Fragment>
-            ) : (<RefreshIcon onClick={this.handleRefreshClick}/>)
+            ) : (<RefreshIcon style={{ cursor: 'pointer' }} onClick={this.handleRefreshClick}/>)
           }
         </StatsContainer>
       )

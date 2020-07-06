@@ -33,6 +33,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 22px;
     line-height: 30px;
     color: #000000;
+    margin: 10px 0;
   }
 
   input {
@@ -65,16 +66,58 @@ const GlobalStyle = createGlobalStyle`
     color: #000000;
   }
 
-  .ReactModal__Content {
+  .createModalOpen {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: auto;
+    bottom: auto;
+    width: 100vw;
+    padding: 0;
+    height: calc(100vh - 15px);
+    border-radius: 16px 16px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    
     @media (min-width: 768px) {
-      /* Hate to use !important but react-modal wont take my class into account */
-      left: 20%!important;
-      width: 60%!important;
-      top: 44px!important;
-      bottom: 44px!important;
-      border-radius: 16px!important;
-      height: unset!important;
+      left: 20%;
+      width: 60%;
+      top: 44px;
+      bottom: 44px;
+      border-radius: 16px;
+      height: unset;
     }
+  }
+
+  .alertModal {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    background: #FAFAFA;
+    box-shadow: 0px 24px 38px rgba(0, 0, 0, 0.14);
+    border-radius: 10px;
+    position: absolute;
+    padding: 15px 40px;
+    width: 220px;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    &:focus{
+      outline: unset;
+    }
+  }
+
+  .modalOverlay {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.50);
   }
 `
 

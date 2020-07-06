@@ -15,24 +15,6 @@ import ActivityIndicator from '../../icons/activityIndicator.svg'
 
 Modal.setAppElement('#root')
 
-const modalStyles = {
-  content: {
-    top: '15px',
-    left: '0',
-    right: 'auto',
-    bottom: 'auto',
-    width: '100vw',
-    padding: '0',
-    height: 'calc(100vh - 15px)',
-    borderRadius: '16px 16px 0px 0px',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.75)',
-  },
-}
-
 const ModalControls = styled.div`
     display: flex;
     height: 70px;
@@ -108,7 +90,8 @@ class CreateCounterModal extends Component {
       <Modal
         isOpen={isModalOpen}
         onRequestClose={closeModal}
-        style={modalStyles}
+        className="createModalOpen"
+        overlayClassName="modalOverlay"
       >
         <ModalControls>
           <CloseButton

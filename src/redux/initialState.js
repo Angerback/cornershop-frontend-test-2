@@ -9,6 +9,9 @@ const initialState = {
   toggleId: '',
   selectedCounterId: '',
   pendingToggle: false,
+  deletePending: false,
+  deleteError: null,
+  deleteId: '',
 }
 
 export default initialState

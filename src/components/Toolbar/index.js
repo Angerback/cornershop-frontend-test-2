@@ -9,13 +9,16 @@ import { bindActionCreators } from 'redux'
 import Popup from 'reactjs-popup'
 import CreateCounterModal from '../CreateCounterModal'
 import Button from '../Button'
+import Alert from '../AlertModal'
 
-import { getSelectedCounter, getCounters } from '../../redux/reducers'
+import {
+  getSelectedCounter, getCounters, getCountersDeletePending, getCountersDeleteError,
+} from '../../redux/reducers'
 
 import ExportIcon from '../../icons/ExportIcon.svg'
 import TrashIcon from '../../icons/TrashIcon.svg'
 import PlusIcon from '../../icons/Plus.svg'
-import { selectCounter } from '../../redux/actions'
+import deleteCounterAction from '../../redux/deleteCounter'
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -60,28 +63,33 @@ const popupArrowStyle = {
 
 class Toolbar extends PureComponent {
   static propTypes = {
-    selectedCounter: PropTypes.string.isRequired,
+    selectedCounter: PropTypes.object,
+    selectedCounterId: PropTypes.string.isRequired,
     counters: PropTypes.array.isRequired,
+    deleteCounter: PropTypes.func.isRequired,
+    deletePending: PropTypes.bool.isRequired,
   }
 
   static defaultProps = {
     errorCreate: null,
+    selectedCounter: {},
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      createCounterModalOpen: false,
+      isCreateCounterModalOpen: false,
+      isDeleteAlertOpen: false,
     }
   }
 
   handleAddCounterClick = (e) => {
     e.preventDefault()
-    this.setState({ createCounterModalOpen: true })
+    this.setState({ isCreateCounterModalOpen: true })
   }
 
   closeCreateCounterModal = () => {
-    this.setState({ createCounterModalOpen: false })
+    this.setState({ isCreateCounterModalOpen: false })
   }
 
   setTooltipLeft = () => {
@@ -89,9 +97,9 @@ class Toolbar extends PureComponent {
     if (tooltipContainer) { tooltipContainer.style.left = 'unset' }
   }
 
-  shareCounter = () => {
-    const { counters, selectedCounter } = this.props
-    const counterToShare = counters.find((counter) => counter.id === selectedCounter)
+  handleShareCounter = () => {
+    const { counters, selectedCounterId } = this.props
+    const counterToShare = counters.find((counter) => counter.id === selectedCounterId)
     const el = document.createElement('textarea')
     el.value = `${counterToShare.count} x ${counterToShare.title}`
     document.body.appendChild(el)
@@ -100,29 +108,62 @@ class Toolbar extends PureComponent {
     document.body.removeChild(el)
   }
 
+  handleDeleteCounter = () => {
+    this.setState({ isDeleteAlertOpen: true })
+  }
+
+  deleteAlertCloseHandler = () => {
+    this.setState({ isDeleteAlertOpen: false })
+  }
+
+  deleteCounter = () => {
+    const { deleteCounter, selectedCounterId } = this.props
+    deleteCounter(selectedCounterId)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { deletePending } = this.props
+    if (prevProps.deletePending === true && deletePending === false) {
+      this.setState({ isDeleteAlertOpen: false })
+    }
+  }
+
   render() {
-    const { createCounterModalOpen } = this.state
-    const { selectedCounter } = this.props
+    const { isCreateCounterModalOpen, isDeleteAlertOpen } = this.state
+    const { selectedCounterId, selectedCounter } = this.props
     return (
       <ButtonWrapper>
         <Separator />
-        {selectedCounter !== '' && (
-          <SelectionButtons>
-            <Button theme="secondary"><TrashIcon style={{ marginBottom: '-7px' }} /></Button>
-            <Popup
-              trigger={<Button theme="secondary"><ExportIcon style={{ marginBottom: '-7px' }}/></Button>}
-              repositionOnResize
-              position="top center"
-              on="click"
-              contentStyle={popupContentStyle}
-              arrowStyle={popupArrowStyle}
-            >
-              <Fragment>
-                <h1>Share 1 counter</h1>
-                <Button onClick={this.shareCounter} theme="secondary">Copy</Button>
-              </Fragment>
-            </Popup>
-          </SelectionButtons>
+        {selectedCounterId !== '' && (
+          <Fragment>
+            <SelectionButtons>
+              <Button onClick={this.handleDeleteCounter} theme="secondary"><TrashIcon style={{ marginBottom: '-7px' }} /></Button>
+              <Popup
+                trigger={<Button theme="secondary"><ExportIcon style={{ marginBottom: '-7px' }}/></Button>}
+                repositionOnResize
+                position="top center"
+                on="click"
+                contentStyle={popupContentStyle}
+                arrowStyle={popupArrowStyle}
+              >
+                <Fragment>
+                  <h1>Share 1 counter</h1>
+                  <Button onClick={this.handleShareCounter} theme="secondary">Copy</Button>
+                </Fragment>
+              </Popup>
+            </SelectionButtons>
+            <Alert
+              isOpen={isDeleteAlertOpen}
+              closeHandler={this.deleteAlertCloseHandler}
+              title={`Delete the "${selectedCounter.title}" counter?`}
+              message="This cannot be undone."
+              primaryButtonText="Cancel"
+              secondaryButtonText="Delete"
+              primaryButtonHandler={this.deleteAlertCloseHandler}
+              secondaryButtonHandler={this.deleteCounter}
+              secondaryButtonTextColor="red"
+            />
+          </Fragment>
         )}
         <Button onClick={this.handleAddCounterClick}
           theme="primary"
@@ -132,7 +173,7 @@ class Toolbar extends PureComponent {
           }}/>
         </Button>
         <CreateCounterModal
-          isModalOpen={createCounterModalOpen}
+          isModalOpen={isCreateCounterModalOpen}
           closeModal={this.closeCreateCounterModal}
         />
       </ButtonWrapper>
@@ -141,12 +182,14 @@ class Toolbar extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  selectedCounter: getSelectedCounter(state),
+  selectedCounterId: getSelectedCounter(state),
+  selectedCounter: getCounters(state).find((counter) => counter.id === getSelectedCounter(state)),
   counters: getCounters(state),
+  deletePending: getCountersDeletePending(state),
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
-
+  deleteCounter: deleteCounterAction,
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar)
