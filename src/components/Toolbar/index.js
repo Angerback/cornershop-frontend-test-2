@@ -127,7 +127,10 @@ class Toolbar extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { deletePending } = this.props
+    const { deletePending, deleteError } = this.props
+    if (prevProps.deletePending === true && deletePending === false && !deleteError) {
+      this.setState({ isDeleteAlertOpen: false })
+    }
   }
 
   dismissDeleteModal = () => {
