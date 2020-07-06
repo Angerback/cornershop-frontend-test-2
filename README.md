@@ -130,3 +130,5 @@ I include some goodies as loadable components to start with code splitting right
 From here on I will work on the storage and populating it through actions and build the app most basic flow, from welcome page to a main screen with a loading state
 
 As I am making some progress and have made a general structure of what the app will be built like, I start with tests. From this point forward, I'll try to test the main component features.
+
+I've found unit tests to be too expensive for the time I have, so I ended un using cypress as a functional test to ensure every feature is there. I'ts really feeling like a debt, but I must focus on deliver the features needed and I'll do my best to unit test as I find the time to do so.
