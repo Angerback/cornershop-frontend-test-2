@@ -22,14 +22,16 @@ export default class AlertModal extends Component {
       title: PropTypes.string.isRequired,
       message: PropTypes.string.isRequired,
       primaryButtonText: PropTypes.string.isRequired,
-      secondaryButtonText: PropTypes.string.isRequired,
+      secondaryButtonText: PropTypes.string,
       primaryButtonHandler: PropTypes.func.isRequired,
-      secondaryButtonHandler: PropTypes.func.isRequired,
+      secondaryButtonHandler: PropTypes.func,
       secondaryButtonTextColor: PropTypes.string,
     }
 
     static defaultProps = {
       secondaryButtonTextColor: '',
+      secondaryButtonText: null,
+      secondaryButtonHandler: null,
     }
 
     render() {
@@ -56,7 +58,12 @@ export default class AlertModal extends Component {
             <span>{message}</span>
             <ButtonWrapper>
               <Button theme="primary" onClick={primaryButtonHandler}>{primaryButtonText}</Button>
-              <Button style={{ color: secondaryButtonTextColor }} theme="secondary" onClick={secondaryButtonHandler}>{secondaryButtonText}</Button>
+              {secondaryButtonText && secondaryButtonHandler && (
+                <Button style={{ color: secondaryButtonTextColor }}
+                  theme="secondary"
+                  onClick={secondaryButtonHandler}>{secondaryButtonText}
+                </Button>
+              )}
             </ButtonWrapper>
           </Modal>
         </div>

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import Modal from 'react-modal'
@@ -7,8 +7,10 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getCountersCreationPending, getCountersCreationError } from '../../redux/reducers'
 import createCounterAction from '../../redux/createCounter'
+import { createCountersErrorClearAction } from '../../redux/clearError'
 
 import Button from '../Button'
+import Alert from '../AlertModal'
 import CloseIcon from '../../icons/CloseButton.svg'
 import Centered from '../CenteredWrapper'
 import ActivityIndicator from '../../icons/activityIndicator.svg'
@@ -50,12 +52,14 @@ class CreateCounterModal extends Component {
       createCounter: PropTypes.func.isRequired,
       isModalOpen: PropTypes.bool.isRequired,
       closeModal: PropTypes.func.isRequired,
+      clearCreateError: PropTypes.func.isRequired,
     }
 
     constructor(props) {
       super(props)
       this.state = {
         counterName: '',
+        isCreationErrorModalOpen: false,
       }
     }
 
@@ -79,58 +83,75 @@ class CreateCounterModal extends Component {
       this.setState({ counterName: '' })
     }
     if (prevProps.pendingCreate === true && pendingCreate === false && errorCreate) {
-      this.setState({ counterName: 'Hubo un error' })
+      closeModal()
+      this.setState({ isCreationErrorModalOpen: true, counterName: '' })
     }
+  }
+
+  errorModalCloseHandler = () => {
+    const { clearCreateError } = this.props
+    clearCreateError()
+    this.setState({ isCreationErrorModalOpen: false })
   }
 
   render() {
     const { isModalOpen, pendingCreate, closeModal } = this.props
-    const { counterName } = this.state
+    const { counterName, isCreationErrorModalOpen } = this.state
     return (
-      <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        className="createModalOpen"
-        overlayClassName="modalOverlay"
-      >
-        <ModalControls>
-          <CloseButton
-            onClick={closeModal}
-          />
-          <h1 style={{ flex: '1' }}>Create counter</h1>
-          <Button id='saveNewCounterButton'
-            theme='primary'
-            onClick={this.saveCounterButtonHanlder}
-            disabled={pendingCreate}
-          >
+      <Fragment>
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          className="createModalOpen"
+          overlayClassName="modalOverlay"
+        >
+          <ModalControls>
+            <CloseButton
+              onClick={closeModal}
+            />
+            <h1 style={{ flex: '1' }}>Create counter</h1>
+            <Button id='saveNewCounterButton'
+              theme='primary'
+              onClick={this.saveCounterButtonHanlder}
+              disabled={pendingCreate}
+            >
               Save
-          </Button>
-        </ModalControls>
-        <ModalContent>
-          <form
-            onSubmit={this.saveCounterButtonHanlder}
-          >
-            <label>
+            </Button>
+          </ModalControls>
+          <ModalContent>
+            <form
+              onSubmit={this.saveCounterButtonHanlder}
+            >
+              <label>
                 Name
-              <input
-                autoFocus
-                id="counterNameInput"
-                value={counterName}
-                onChange={this.handleCounterNameChange}
-                placeholder="Cups of coffee"
-                type="text"
-                disabled={pendingCreate}
-              />
-              <InputHint>Give it a name. Creative block? See examples.</InputHint>
-            </label>
-          </form>
-          {pendingCreate && (
-            <Centered>
-              <ActivityIndicator />
-            </Centered>
-          )}
-        </ModalContent>
-      </Modal>
+                <input
+                  autoFocus
+                  id="counterNameInput"
+                  value={counterName}
+                  onChange={this.handleCounterNameChange}
+                  placeholder="Cups of coffee"
+                  type="text"
+                  disabled={pendingCreate}
+                />
+                <InputHint>Give it a name. Creative block? See examples.</InputHint>
+              </label>
+            </form>
+            {pendingCreate && (
+              <Centered>
+                <ActivityIndicator />
+              </Centered>
+            )}
+          </ModalContent>
+        </Modal>
+        <Alert
+          isOpen={isCreationErrorModalOpen}
+          closeHandler={this.errorModalCloseHandler}
+          title="Couldn't create counter"
+          message="The Internet connection appears to be offline."
+          primaryButtonText="Dismiss"
+          primaryButtonHandler={this.errorModalCloseHandler}
+        />
+      </Fragment>
     )
   }
 }
@@ -142,6 +163,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   createCounter: createCounterAction,
+  clearCreateError: createCountersErrorClearAction,
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateCounterModal)

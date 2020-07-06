@@ -5,6 +5,7 @@ import {
   CREATE_COUNTERS_SUCCESS,
   CREATE_COUNTERS_PENDING,
   CREATE_COUNTERS_ERROR,
+  CREATE_COUNTERS_ERROR_CLEAR,
   TOGGLE_COUNTERS_SUCCESS,
   TOGGLE_COUNTERS_ERROR,
   TOGGLE_COUNTERS_PENDING,
@@ -55,6 +56,12 @@ const counters = (state = initialState, action) => {
       ...state,
       createPending: false,
       createError: action.error,
+    }
+  case CREATE_COUNTERS_ERROR_CLEAR:
+    return {
+      ...state,
+      createPending: false,
+      createError: null,
     }
   case TOGGLE_COUNTERS_PENDING:
     return {

@@ -3,6 +3,7 @@ import {
   FETCH_COUNTERS_ERROR,
   FETCH_COUNTERS_SUCCESS,
   CREATE_COUNTERS_ERROR,
+  CREATE_COUNTERS_ERROR_CLEAR,
   CREATE_COUNTERS_PENDING,
   CREATE_COUNTERS_SUCCESS,
   TOGGLE_COUNTERS_ERROR,
@@ -36,6 +37,10 @@ export const createCountersPending = () => ({
 export const createCountersError = (error) => ({
   type: CREATE_COUNTERS_ERROR,
   error,
+})
+
+export const createCountersErrorClear = () => ({
+  type: CREATE_COUNTERS_ERROR_CLEAR,
 })
 
 export const createCountersSuccess = (createdCounter) => ({
