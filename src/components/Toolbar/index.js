@@ -15,6 +15,8 @@ import {
   getSelectedCounter, getCounters, getCountersDeletePending, getCountersDeleteError,
 } from '../../redux/reducers'
 
+import { deleteCountersErrorClearAction } from '../../redux/clearError'
+
 import ExportIcon from '../../icons/ExportIcon.svg'
 import TrashIcon from '../../icons/TrashIcon.svg'
 import PlusIcon from '../../icons/Plus.svg'
@@ -68,11 +70,14 @@ class Toolbar extends PureComponent {
     counters: PropTypes.array.isRequired,
     deleteCounter: PropTypes.func.isRequired,
     deletePending: PropTypes.bool.isRequired,
+    deleteError: PropTypes.object,
+    clearDeleteError: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
     errorCreate: null,
     selectedCounter: {},
+    deleteError: null,
   }
 
   constructor(props) {
@@ -123,14 +128,19 @@ class Toolbar extends PureComponent {
 
   componentDidUpdate(prevProps) {
     const { deletePending } = this.props
-    if (prevProps.deletePending === true && deletePending === false) {
-      this.setState({ isDeleteAlertOpen: false })
-    }
+  }
+
+  dismissDeleteModal = () => {
+    const { clearDeleteError } = this.props
+    this.deleteAlertCloseHandler()
+    clearDeleteError()
   }
 
   render() {
     const { isCreateCounterModalOpen, isDeleteAlertOpen } = this.state
-    const { selectedCounterId, selectedCounter } = this.props
+    const {
+      selectedCounterId, selectedCounter, deleteError, deletePending,
+    } = this.props
     return (
       <ButtonWrapper>
         <Separator />
@@ -155,13 +165,22 @@ class Toolbar extends PureComponent {
             <Alert
               isOpen={isDeleteAlertOpen}
               closeHandler={this.deleteAlertCloseHandler}
-              title={`Delete the "${selectedCounter.title}" counter?`}
-              message="This cannot be undone."
-              primaryButtonText="Cancel"
-              secondaryButtonText="Delete"
-              primaryButtonHandler={this.deleteAlertCloseHandler}
-              secondaryButtonHandler={this.deleteCounter}
-              secondaryButtonTextColor="red"
+              title={deleteError
+                ? `Couldn't delete "${selectedCounter.title}"`
+                : `Delete the "${selectedCounter.title}" counter?`}
+              message={deleteError
+                ? 'The Internet connection appears to be offline.'
+                : 'This cannot be undone.'}
+              primaryButtonText={deleteError
+                ? 'Retry'
+                : 'Cancel'}
+              secondaryButtonText={deleteError
+                ? 'Dismiss'
+                : 'Delete'}
+              primaryButtonHandler={deleteError ? this.deleteCounter : this.deleteAlertCloseHandler}
+              secondaryButtonHandler={deleteError ? this.dismissDeleteModal : this.deleteCounter}
+              secondaryButtonTextColor={deleteError ? undefined : 'red'}
+              pending={deletePending}
             />
           </Fragment>
         )}
@@ -186,10 +205,12 @@ const mapStateToProps = (state) => ({
   selectedCounter: getCounters(state).find((counter) => counter.id === getSelectedCounter(state)),
   counters: getCounters(state),
   deletePending: getCountersDeletePending(state),
+  deleteError: getCountersDeleteError(state),
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
   deleteCounter: deleteCounterAction,
+  clearDeleteError: deleteCountersErrorClearAction,
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toolbar)

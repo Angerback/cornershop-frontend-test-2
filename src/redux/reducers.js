@@ -12,6 +12,7 @@ import {
   DELETE_COUNTERS_SUCCESS,
   DELETE_COUNTERS_PENDING,
   DELETE_COUNTERS_ERROR,
+  DELETE_COUNTERS_ERROR_CLEAR,
   SELECT_COUNTER,
   DESELECT_COUNTER,
 } from './actionTypes'
@@ -103,11 +104,19 @@ const counters = (state = initialState, action) => {
       deleteId: action.id,
       deleteError: action.error,
     }
+  case DELETE_COUNTERS_ERROR_CLEAR:
+    return {
+      ...state,
+      deletePending: false,
+      deleteId: '',
+      deleteError: null,
+    }
   case DELETE_COUNTERS_SUCCESS:
     return {
       ...state,
       deletePending: false,
       deleteId: action.id,
+      deleteError: null,
       counters: state.counters.filter((counter) => action.id !== counter.id),
       selectedCounterId: '',
     }

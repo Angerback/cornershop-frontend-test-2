@@ -26,12 +26,14 @@ export default class AlertModal extends Component {
       primaryButtonHandler: PropTypes.func.isRequired,
       secondaryButtonHandler: PropTypes.func,
       secondaryButtonTextColor: PropTypes.string,
+      pending: PropTypes.bool,
     }
 
     static defaultProps = {
       secondaryButtonTextColor: '',
       secondaryButtonText: null,
       secondaryButtonHandler: null,
+      pending: false,
     }
 
     render() {
@@ -45,6 +47,7 @@ export default class AlertModal extends Component {
         primaryButtonHandler,
         secondaryButtonHandler,
         secondaryButtonTextColor,
+        pending,
       } = this.props
       return (
         <div>
@@ -57,9 +60,9 @@ export default class AlertModal extends Component {
             <h1>{title}</h1>
             <span>{message}</span>
             <ButtonWrapper>
-              <Button theme="primary" onClick={primaryButtonHandler}>{primaryButtonText}</Button>
+              <Button disabled={pending} theme="primary" onClick={primaryButtonHandler}>{primaryButtonText}</Button>
               {secondaryButtonText && secondaryButtonHandler && (
-                <Button style={{ color: secondaryButtonTextColor }}
+                <Button disabled={pending} style={{ color: secondaryButtonTextColor }}
                   theme="secondary"
                   onClick={secondaryButtonHandler}>{secondaryButtonText}
                 </Button>

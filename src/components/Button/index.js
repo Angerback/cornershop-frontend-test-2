@@ -25,6 +25,11 @@ const BaseButton = styled.button`
     font-size: 17px;
     line-height: 23px;
     cursor: pointer;
+
+    &:disabled{
+      background-color: #c1c1c1;
+      color: #ffffff!important;
+    }
 `
 
 export default BaseButton

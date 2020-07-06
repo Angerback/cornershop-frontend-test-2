@@ -14,6 +14,7 @@ import {
   DELETE_COUNTERS_SUCCESS,
   SELECT_COUNTER,
   DESELECT_COUNTER,
+  DELETE_COUNTERS_ERROR_CLEAR,
 } from './actionTypes'
 
 export const fetchCountersPending = () => ({
@@ -74,6 +75,10 @@ export const deleteCountersError = (error, id) => ({
   type: DELETE_COUNTERS_ERROR,
   error,
   id,
+})
+
+export const deleteCountersErrorClear = () => ({
+  type: DELETE_COUNTERS_ERROR_CLEAR,
 })
 
 export const deleteCountersSuccess = (id) => ({
