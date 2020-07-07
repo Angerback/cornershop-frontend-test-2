@@ -131,11 +131,18 @@ describe('Welcome Page Test', () => {
 
     cy.getTestElement('Counters__counter-element').last().click()
     cy.getTestElement('Toolbar__delete-button').click()
+    cy.get('.alertModal').should('exist')
+
     cy.contains('Delete the "Counter to delete" counter?').should('exist')
     cy.getTestElement('Alert__secondary-button').click()
 
     cy.contains('Couldn\'t delete "Counter to delete"').should('exist')
+    cy.getTestElement('Alert__primary-button').click()
+
+    cy.contains('Couldn\'t delete "Counter to delete"').should('exist')
     cy.getTestElement('Alert__secondary-button').click()
+
+    cy.get('.alertModal').should('not.exist')
 
     cy.getTestElement('Counters__counter-element').last().contains('Counter to delete').should('exist')
   })
