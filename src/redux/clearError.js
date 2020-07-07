@@ -1,4 +1,4 @@
-import { createCountersErrorClear, deleteCountersErrorClear } from './actions'
+import { createCountersErrorClear, deleteCountersErrorClear, toggleCountersErrorClear } from './actions'
 
 export const createCountersErrorClearAction = () => (dispatch) => {
   dispatch(createCountersErrorClear())
@@ -6,6 +6,10 @@ export const createCountersErrorClearAction = () => (dispatch) => {
 
 export const deleteCountersErrorClearAction = () => (dispatch) => {
   dispatch(deleteCountersErrorClear())
+}
+
+export const toggleCountersErrorClearAction = () => (dispatch) => {
+  dispatch(toggleCountersErrorClear())
 }
 
 export default { createCountersErrorClearAction }

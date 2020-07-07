@@ -1,27 +1,44 @@
-import React, { PureComponent } from 'react'
+import React, { PureComponent, Fragment } from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import PlusCounter from '../../icons/PlusCounter.svg'
 import MinusCounter from '../../icons/MinusCounter.svg'
+import Alert from '../AlertModal'
 
 import toggleCounterAction from '../../redux/toggleCounter'
 import selectCounterAction from '../../redux/selectCounter'
 import deselectCounterAction from '../../redux/deselectCounter'
+import { toggleCountersErrorClearAction } from '../../redux/clearError'
 import {
   getCountersToggleError, getCountersTogglePending, getCountersToggleId, getSelectedCounter,
 } from '../../redux/reducers'
 
 class Counter extends PureComponent {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      isToggleErrorModalOpen: false,
+    }
+  }
+
   static propTypes = {
     counter: PropTypes.object.isRequired,
     toggleCounter: PropTypes.func.isRequired,
     isProcessingToggle: PropTypes.bool.isRequired,
+    toggleId: PropTypes.string.isRequired,
+    errorToggle: PropTypes.object,
     pendingToggle: PropTypes.bool.isRequired,
     selectCounter: PropTypes.func.isRequired,
     deselectCounter: PropTypes.func.isRequired,
     isSelected: PropTypes.bool.isRequired,
+    clearToggleError: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    errorToggle: null,
   }
 
   handleDecreaseClick = (e) => {
@@ -47,39 +64,70 @@ class Counter extends PureComponent {
     }
   }
 
+  errorModalCloseHandler = () => {
+    const { clearToggleError } = this.props
+    clearToggleError()
+  }
+
+  getDesiredUpdate = () => {
+    const { errorToggle, counter, toggleId } = this.props
+    if (errorToggle && toggleId === counter.id) {
+      return errorToggle.isIncrease ? counter.count + 1 : counter.count - 1
+    }
+    return 0
+  }
+
   render() {
     const {
-      counter, isSelected, isProcessingToggle,
+      counter, isSelected, isProcessingToggle, errorToggle, toggleId,
     } = this.props
 
+    const isToggleErrorModalOpen = errorToggle && toggleId === counter.id
+
+    const desiredUpdate = this.getDesiredUpdate()
+
     return (
-      <Row
-        isSelected={isSelected}
-        onClick={this.handleCounterClick}
-        data-testid="Counters__counter-element">
-        <CounterTitle>
-          {counter.title}
-        </CounterTitle>
-        <CountContainer>
-          <Toggle
-            onClick={this.handleDecreaseClick}
-            disabled={counter.count === 0 || isProcessingToggle}
-            data-testid="Counters__counter-decrease"
-          >
-            <MinusCounter />
-          </Toggle>
-          <Value data-testid="Counters__counter-value">
-            {counter.count}
-          </Value>
-          <Toggle
-            onClick={this.handleIncreaseClick}
-            disabled={isProcessingToggle}
-            data-testid="Counters__counter-increase"
-          >
-            <PlusCounter />
-          </Toggle>
-        </CountContainer>
-      </Row>
+      <Fragment>
+        <Row
+          isSelected={isSelected}
+          onClick={this.handleCounterClick}
+          data-testid="Counters__counter-element">
+          <CounterTitle>
+            {counter.title}
+          </CounterTitle>
+          <CountContainer>
+            <Toggle
+              onClick={this.handleDecreaseClick}
+              disabled={counter.count === 0 || isProcessingToggle}
+              data-testid="Counters__counter-decrease"
+            >
+              <MinusCounter />
+            </Toggle>
+            <Value data-testid="Counters__counter-value">
+              {counter.count}
+            </Value>
+            <Toggle
+              onClick={this.handleIncreaseClick}
+              disabled={isProcessingToggle}
+              data-testid="Counters__counter-increase"
+            >
+              <PlusCounter />
+            </Toggle>
+          </CountContainer>
+        </Row>
+        <Alert
+          isOpen={isToggleErrorModalOpen}
+          closeHandler={this.errorModalCloseHandler}
+          title={`Couldn't update "${counter.title}" to ${desiredUpdate}`}
+          message="The Internet connection appears to be offline."
+          primaryButtonText="Retry"
+          primaryButtonHandler={errorToggle && errorToggle.isIncrease
+            ? this.handleIncreaseClick
+            : this.handleDecreaseClick}
+          secondaryButtonText="Dismiss"
+          secondaryButtonHandler={this.errorModalCloseHandler}
+        />
+      </Fragment>
     )
   }
 }
@@ -97,6 +145,7 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
   toggleCounter: toggleCounterAction,
   selectCounter: selectCounterAction,
   deselectCounter: deselectCounterAction,
+  clearToggleError: toggleCountersErrorClearAction,
 }, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter)

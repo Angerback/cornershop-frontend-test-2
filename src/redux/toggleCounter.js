@@ -9,10 +9,12 @@ const toggleCounter = ({ id, isIncrease }) => (dispatch) => {
       if (res.error) {
         throw (res.error)
       }
-      dispatch(toggleCountersSuccess(res.data), id)
+      dispatch(toggleCountersSuccess(res.data, id))
     })
     .catch((error) => {
-      dispatch(toggleCountersError(error), id)
+      const toggleError = error
+      toggleError.isIncrease = isIncrease
+      dispatch(toggleCountersError(toggleError, id))
     })
 }
 

@@ -5,7 +5,7 @@ const initialState = {
   createPending: false,
   createError: null,
   togglePending: false,
-  toggleError: false,
+  toggleError: null,
   toggleId: '',
   selectedCounterId: '',
   pendingToggle: false,

@@ -15,6 +15,7 @@ import {
   SELECT_COUNTER,
   DESELECT_COUNTER,
   DELETE_COUNTERS_ERROR_CLEAR,
+  TOGGLE_COUNTERS_ERROR_CLEAR,
 } from './actionTypes'
 
 export const fetchCountersPending = () => ({
@@ -58,6 +59,10 @@ export const toggleCountersError = (error, id) => ({
   type: TOGGLE_COUNTERS_ERROR,
   error,
   toggleId: id,
+})
+
+export const toggleCountersErrorClear = () => ({
+  type: TOGGLE_COUNTERS_ERROR_CLEAR,
 })
 
 export const toggleCountersSuccess = (toggledCounter, id) => ({

@@ -8,6 +8,7 @@ import {
   CREATE_COUNTERS_ERROR_CLEAR,
   TOGGLE_COUNTERS_SUCCESS,
   TOGGLE_COUNTERS_ERROR,
+  TOGGLE_COUNTERS_ERROR_CLEAR,
   TOGGLE_COUNTERS_PENDING,
   DELETE_COUNTERS_SUCCESS,
   DELETE_COUNTERS_PENDING,
@@ -77,6 +78,13 @@ const counters = (state = initialState, action) => {
       togglePending: false,
       toggleError: action.error,
       toggleId: action.toggleId,
+    }
+  case TOGGLE_COUNTERS_ERROR_CLEAR:
+    return {
+      ...state,
+      togglePending: false,
+      toggleError: null,
+      toggleId: '',
     }
   case TOGGLE_COUNTERS_SUCCESS:
     return {
