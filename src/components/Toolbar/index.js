@@ -139,18 +139,46 @@ class Toolbar extends PureComponent {
     clearDeleteError()
   }
 
+  getAlertConfig = () => {
+    const { deleteError, selectedCounter } = this.props
+    return {
+      title: deleteError
+        ? `Couldn't delete "${selectedCounter.title}"`
+        : `Delete the "${selectedCounter.title}" counter?`,
+      message: deleteError
+        ? 'The Internet connection appears to be offline.'
+        : 'This cannot be undone.',
+      primaryButtonText: deleteError
+        ? 'Retry'
+        : 'Cancel',
+      secondaryButtonText: deleteError
+        ? 'Dismiss'
+        : 'Delete',
+      primaryButtonHandler: deleteError ? this.deleteCounter : this.deleteAlertCloseHandler,
+      secondaryButtonHandler: deleteError ? this.dismissDeleteModal : this.deleteCounter,
+      secondaryButtonTextColor: deleteError ? undefined : 'red',
+    }
+  }
+
   render() {
     const { isCreateCounterModalOpen, isDeleteAlertOpen } = this.state
     const {
-      selectedCounterId, selectedCounter, deleteError, deletePending,
+      selectedCounterId, deletePending,
     } = this.props
+    const alertConfig = this.getAlertConfig()
     return (
       <ButtonWrapper>
         <Separator />
         {selectedCounterId !== '' && (
           <Fragment>
             <SelectionButtons>
-              <Button onClick={this.handleDeleteCounter} theme="secondary"><TrashIcon style={{ marginBottom: '-7px' }} /></Button>
+              <Button
+                onClick={this.handleDeleteCounter}
+                theme="secondary"
+                data-testid="Toolbar__delete-button"
+              >
+                <TrashIcon style={{ marginBottom: '-7px' }} />
+              </Button>
               <Popup
                 trigger={<Button theme="secondary"><ExportIcon style={{ marginBottom: '-7px' }}/></Button>}
                 repositionOnResize
@@ -166,23 +194,9 @@ class Toolbar extends PureComponent {
               </Popup>
             </SelectionButtons>
             <Alert
+              {...alertConfig}
               isOpen={isDeleteAlertOpen}
               closeHandler={this.deleteAlertCloseHandler}
-              title={deleteError
-                ? `Couldn't delete "${selectedCounter.title}"`
-                : `Delete the "${selectedCounter.title}" counter?`}
-              message={deleteError
-                ? 'The Internet connection appears to be offline.'
-                : 'This cannot be undone.'}
-              primaryButtonText={deleteError
-                ? 'Retry'
-                : 'Cancel'}
-              secondaryButtonText={deleteError
-                ? 'Dismiss'
-                : 'Delete'}
-              primaryButtonHandler={deleteError ? this.deleteCounter : this.deleteAlertCloseHandler}
-              secondaryButtonHandler={deleteError ? this.dismissDeleteModal : this.deleteCounter}
-              secondaryButtonTextColor={deleteError ? undefined : 'red'}
               pending={deletePending}
             />
           </Fragment>

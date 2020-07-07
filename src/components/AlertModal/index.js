@@ -60,9 +60,9 @@ export default class AlertModal extends Component {
             <h1>{title}</h1>
             <span>{message}</span>
             <ButtonWrapper>
-              <Button disabled={pending} theme="primary" onClick={primaryButtonHandler}>{primaryButtonText}</Button>
+              <Button data-testid="Alert__primary-button" disabled={pending} theme="primary" onClick={primaryButtonHandler}>{primaryButtonText}</Button>
               {secondaryButtonText && secondaryButtonHandler && (
-                <Button disabled={pending} style={{ color: secondaryButtonTextColor }}
+                <Button data-testid="Alert__secondary-button" disabled={pending} style={{ color: secondaryButtonTextColor }}
                   theme="secondary"
                   onClick={secondaryButtonHandler}>{secondaryButtonText}
                 </Button>
