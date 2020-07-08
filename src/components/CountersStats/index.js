@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { getCounters, getCountersPending } from '../../redux/reducers'
+import {
+  getCounters, getCountersPending, getIsSearching, getSearchResult,
+} from '../../redux/reducers'
 import fetchCountersAction from '../../redux/fetchCounters'
 
 import RefreshIcon from '../../icons/RefreshIcon.svg'
@@ -46,7 +48,7 @@ class CountersStats extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  counters: getCounters(state),
+  counters: getIsSearching(state) ? getSearchResult(state) : getCounters(state),
   pendingCounters: getCountersPending(state),
 })
 

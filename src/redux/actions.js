@@ -16,6 +16,7 @@ import {
   DESELECT_COUNTER,
   DELETE_COUNTERS_ERROR_CLEAR,
   TOGGLE_COUNTERS_ERROR_CLEAR,
+  UPDATE_SEARCH,
 } from './actionTypes'
 
 export const fetchCountersPending = () => ({
@@ -98,4 +99,11 @@ export const selectCounter = (id) => ({
 
 export const deselectCounter = () => ({
   type: DESELECT_COUNTER,
+})
+
+export const updateSearch = (searchString, isSearching, searchResult) => ({
+  type: UPDATE_SEARCH,
+  searchString,
+  isSearching,
+  searchResult,
 })

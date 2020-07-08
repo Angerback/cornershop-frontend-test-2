@@ -82,7 +82,7 @@ class Counter extends PureComponent {
       counter, isSelected, isProcessingToggle, errorToggle, toggleId,
     } = this.props
 
-    const isToggleErrorModalOpen = errorToggle && toggleId === counter.id
+    const isToggleErrorModalOpen = (errorToggle && (toggleId === counter.id)) || false
 
     const desiredUpdate = this.getDesiredUpdate()
 

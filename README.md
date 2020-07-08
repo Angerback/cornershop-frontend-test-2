@@ -132,3 +132,9 @@ From here on I will work on the storage and populating it through actions and bu
 As I am making some progress and have made a general structure of what the app will be built like, I start with tests. From this point forward, I'll try to test the main component features.
 
 I've found unit tests to be too expensive for the time I have, so I ended un using cypress as a functional test to ensure every feature is there. I'ts really feeling like a debt, but I must focus on deliver the features needed and I'll do my best to unit test as I find the time to do so.
+
+Done with the search feature! got me thinking for a while but I leveraged the redux structure I made from the start and deferred the whole search feature to reducers, and merely read props from state on my UI.
+
+Please run tests with 'yarn functional:ci'. you could use 'yarn functional' If you want to take a look at what the tests do.
+
+Had lots of fun making this, and couldn't even look at unit testing as I have so little time from my current work... but I hope cypress is good enough for this test.

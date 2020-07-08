@@ -6,7 +6,9 @@ import styled from 'styled-components'
 import { VariableSizeList } from 'react-window'
 import AutoSizer from 'react-virtualized-auto-sizer'
 import fetchCountersAction from '../../redux/fetchCounters'
-import { getCounters, getCountersError, getCountersPending } from '../../redux/reducers'
+import {
+  getCounters, getCountersError, getCountersPending, getIsSearching, getSearchResult,
+} from '../../redux/reducers'
 
 import Toolbar from '../../components/Toolbar'
 import Centered from '../../components/CenteredWrapper'
@@ -23,6 +25,7 @@ class Main extends PureComponent {
       error: PropTypes.object,
       counters: PropTypes.array.isRequired,
       fetchCounters: PropTypes.func.isRequired,
+      isSearching: PropTypes.bool.isRequired,
     }
 
     static defaultProps = {
@@ -50,7 +53,7 @@ class Main extends PureComponent {
 
     render() {
       const {
-        pending, counters, error, fetchCounters,
+        pending, counters, error, fetchCounters, isSearching,
       } = this.props
       return (
         <MainWrapper>
@@ -70,7 +73,8 @@ class Main extends PureComponent {
                     width={width}
                     itemCount={counters.length}
                     itemSize={this.getCounterSize}
-                    updateProp={counters.reduce((acc = 0, counter) => acc + counter.count)}
+                    updateProp={counters.map((counter) => counter.count)
+                      .reduce((acc, count) => acc + count)}
                   >
                     {this.Row}
                   </VariableSizeList>
@@ -78,7 +82,7 @@ class Main extends PureComponent {
               </AutoSizer>
             </Counters>
           )}
-          {!error && !pending && counters.length === 0 && (
+          {!isSearching && !error && !pending && counters.length === 0 && (
             <Centered>
               <h1>No counters yet</h1>
               <p>“When I started counting my blessings,
@@ -93,6 +97,11 @@ class Main extends PureComponent {
               <Button data-testid="Counters__retry-button" onClick={fetchCounters} theme="secondary">Retry</Button>
             </Centered>
           )}
+          {!pending && isSearching && counters.length === 0 && (
+            <Centered>
+              <NoResults>No results</NoResults>
+            </Centered>
+          )}
           <Toolbar />
         </MainWrapper>
       )
@@ -101,8 +110,9 @@ class Main extends PureComponent {
 
 const mapStateToProps = (state) => ({
   error: getCountersError(state),
-  counters: getCounters(state),
+  counters: getIsSearching(state) ? getSearchResult(state) : getCounters(state),
   pending: getCountersPending(state),
+  isSearching: getIsSearching(state),
 })
 
 const mapDispatchToProps = (dispatch) => bindActionCreators({
@@ -124,4 +134,15 @@ const MainWrapper = styled.div`
 `
 const Counters = styled.div`
   flex: 1;
+`
+
+const NoResults = styled.span`
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 30px;
+  /* identical to box height */
+
+  letter-spacing: 0.02em;
+
+  color: #888B90;
 `

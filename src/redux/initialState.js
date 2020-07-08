@@ -12,6 +12,9 @@ const initialState = {
   deletePending: false,
   deleteError: null,
   deleteId: '',
+  isSearching: false,
+  searchString: '',
+  searchResult: [],
 }
 
 export default initialState

@@ -1,3 +1,4 @@
+import Fuse from 'fuse.js'
 import {
   FETCH_COUNTERS_SUCCESS,
   FETCH_COUNTERS_ERROR,
@@ -16,8 +17,11 @@ import {
   DELETE_COUNTERS_ERROR_CLEAR,
   SELECT_COUNTER,
   DESELECT_COUNTER,
+  UPDATE_SEARCH,
 } from './actionTypes'
 import initialState from './initialState'
+
+const fuse = new Fuse([], { keys: ['title'], threshold: 0.3 })
 
 const counters = (state = initialState, action) => {
   switch (action.type) {
@@ -48,11 +52,15 @@ const counters = (state = initialState, action) => {
       createError: null,
     }
   case CREATE_COUNTERS_SUCCESS:
+    fuse.setCollection([...state.counters, action.createdCounter])
     return {
       ...state,
       createPending: false,
       createError: null,
       counters: [...state.counters, action.createdCounter],
+      searchResult: state.isSearching
+        ? fuse.search(state.searchString).map((result) => result.item)
+        : state.searchResult,
     }
   case CREATE_COUNTERS_ERROR:
     return {
@@ -88,6 +96,12 @@ const counters = (state = initialState, action) => {
       toggleId: '',
     }
   case TOGGLE_COUNTERS_SUCCESS:
+    fuse.setCollection(state.counters.map((counter) => {
+      if (counter.id === action.toggledCounter.id) {
+        return action.toggledCounter
+      }
+      return counter
+    }))
     return {
       ...state,
       togglePending: false,
@@ -99,6 +113,9 @@ const counters = (state = initialState, action) => {
         }
         return counter
       }),
+      searchResult: state.isSearching
+        ? fuse.search(state.searchString).map((result) => result.item)
+        : state.searchResult,
     }
   case DELETE_COUNTERS_PENDING:
     return {
@@ -121,6 +138,7 @@ const counters = (state = initialState, action) => {
       deleteError: null,
     }
   case DELETE_COUNTERS_SUCCESS:
+    fuse.setCollection(state.counters.filter((counter) => action.id !== counter.id))
     return {
       ...state,
       deletePending: false,
@@ -128,6 +146,9 @@ const counters = (state = initialState, action) => {
       deleteError: null,
       counters: state.counters.filter((counter) => action.id !== counter.id),
       selectedCounterId: '',
+      searchResult: state.isSearching
+        ? fuse.search(state.searchString).map((result) => result.item)
+        : state.searchResult,
     }
   case SELECT_COUNTER:
     return {
@@ -138,6 +159,14 @@ const counters = (state = initialState, action) => {
     return {
       ...state,
       selectedCounterId: '',
+    }
+  case UPDATE_SEARCH:
+    fuse.setCollection(state.counters)
+    return {
+      ...state,
+      isSearching: action.isSearching,
+      searchString: action.searchString,
+      searchResult: action.isSearching && action.searchString === '' ? state.counters : fuse.search(action.searchString).map((result) => result.item),
     }
   default:
     return state
@@ -160,5 +189,9 @@ export const getCountersDeleteError = (state) => state.deleteError
 export const getCountersDeleteId = (state) => state.deleteId
 
 export const getSelectedCounter = (state) => state.selectedCounterId
+
+export const getIsSearching = (state) => state.isSearching
+export const getSearchString = (state) => state.searchString
+export const getSearchResult = (state) => state.searchResult
 
 export default counters
