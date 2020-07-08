@@ -39,6 +39,7 @@ const counters = (state = initialState, action) => {
       ...state,
       pending: false,
       error: action.error,
+      counters: [],
     }
   case CREATE_COUNTERS_PENDING:
     return {

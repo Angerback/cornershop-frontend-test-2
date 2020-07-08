@@ -10,6 +10,7 @@ import { getCounters, getCountersError, getCountersPending } from '../../redux/r
 
 import Toolbar from '../../components/Toolbar'
 import Centered from '../../components/CenteredWrapper'
+import Button from '../../components/Button'
 
 import ActivityIndicator from '../../icons/activityIndicator.svg'
 import SearchBar from '../../components/SearchBar'
@@ -48,7 +49,9 @@ class Main extends PureComponent {
     }
 
     render() {
-      const { pending, counters } = this.props
+      const {
+        pending, counters, error, fetchCounters,
+      } = this.props
       return (
         <MainWrapper>
           <SearchBar />
@@ -58,7 +61,7 @@ class Main extends PureComponent {
               <ActivityIndicator />
             </Centered>
           )}
-          {!pending && counters.length > 0 && (
+          {!error && !pending && counters.length > 0 && (
             <Counters>
               <AutoSizer>
                 {({ height, width }) => (
@@ -75,12 +78,19 @@ class Main extends PureComponent {
               </AutoSizer>
             </Counters>
           )}
-          {!pending && counters.length === 0 && (
+          {!error && !pending && counters.length === 0 && (
             <Centered>
               <h1>No counters yet</h1>
               <p>“When I started counting my blessings,
                  my whole life turned around.” —Willie Nelson
               </p>
+            </Centered>
+          )}
+          {error && counters.length === 0 && (
+            <Centered>
+              <h1>Couldn&apos;t load the counters</h1>
+              <p>The Internet connection appears to be offline.</p>
+              <Button data-testid="Counters__retry-button" onClick={fetchCounters} theme="secondary">Retry</Button>
             </Centered>
           )}
           <Toolbar />
